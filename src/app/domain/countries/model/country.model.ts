@@ -4,11 +4,11 @@ export interface Country {
   code: string;
 }
 
-export interface CreateCountry {
+export interface CreateCountryDTO {
   name: string;
   code: string;
 }
 
-export interface DeleteCountry {
+export interface DeleteCountryDTO {
   id: string;
 }

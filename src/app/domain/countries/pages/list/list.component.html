@@ -6,11 +6,12 @@
     <p class="text-white text-center">All countries of DB</p>
   </div>
 </header>
-<section class="w-full mt-20 md:px-60 px-5">
+<section class="w-full mt-10 md:px-60 px-5 py-10">
   <app-country-modal
     [showModal]="showModal"
     [country]="selectedCountry"
     (toggleModal)="toggleModal($event)"
+    (updateList)="updateList()"
   />
   <div class="flex justify-end">
     <button
@@ -30,10 +31,10 @@
     >
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
-          <th scope="col" class="md:px-6 px-2 py-3">Item</th>
-          <th scope="col" class="px-6 py-3">Name</th>
-          <th scope="col" class="px-6 py-3">Code</th>
-          <th scope="col" class="px-6 py-3">Action</th>
+          <th scope="col" class="md:px-6 px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">NAME</th>
+          <th scope="col" class="px-6 py-3">CODE</th>
+          <th scope="col" class="px-6 py-3">ACTION</th>
         </tr>
       </thead>
       <tbody>
@@ -50,18 +51,18 @@
           <td class="px-6 py-4">{{ country.name }}</td>
           <td class="px-6 py-4">{{ country.code }}</td>
           <td class="px-6 py-4 flex flex-row md:gap-10 gap-2">
-            <button (click)="deleteCountry(i)">
-              <img
-                src="../../../../../assets/delete.png"
-                width="25"
-                alt="delete country"
-              />
-            </button>
             <button (click)="editCountry(country)">
               <img
                 src="../../../../../assets/edit.png"
                 width="25"
                 alt="edit country"
+              />
+            </button>
+            <button (click)="deleteCountry(country.id)">
+              <img
+                src="../../../../../assets/delete.png"
+                width="25"
+                alt="delete country"
               />
             </button>
           </td>

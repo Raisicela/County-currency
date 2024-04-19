@@ -5,9 +5,11 @@ import {
   Input,
   Output,
   SimpleChanges,
+  inject,
   signal,
 } from '@angular/core';
-import { Country, CreateCountry } from '../../model/country.model';
+import { Country } from '../../model/country.model';
+import { CountriesService } from '../../services/countries.service';
 
 @Component({
   selector: 'app-country-modal',
@@ -17,10 +19,12 @@ import { Country, CreateCountry } from '../../model/country.model';
   styleUrl: './country-modal.component.css',
 })
 export class CountryModalComponent {
+  private countriesService = inject(CountriesService);
   @Input() showModal: boolean = false;
   @Input() country?: Country = undefined;
   @Output()
   toggleModal = new EventEmitter();
+  @Output() updateList = new EventEmitter();
   editCountry = signal<Country>({ id: '', name: '', code: '' });
 
   updateName(event: Event) {
@@ -37,12 +41,23 @@ export class CountryModalComponent {
     this.toggleModal.emit();
   }
 
-  saveChanges() {
+  async saveChanges() {
     if (this.editCountry().id) {
       console.log('actualizar Country', this.editCountry());
+      await this.countriesService.updateCountry({
+        id: this.editCountry().id,
+        name: this.editCountry().name,
+        code: this.editCountry().code,
+      });
     } else {
       console.log('Create Country', this.editCountry());
+      await this.countriesService.createCountry({
+        name: this.editCountry().name,
+        code: this.editCountry().code,
+      });
     }
+    this.showModal = false;
+    this.updateList.emit();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,6 +65,7 @@ export class CountryModalComponent {
       console.log(this.country);
       this.editCountry.set(this.country!);
     } else {
+      this.editCountry.set({ id: '', name: '', code: '' });
     }
   }
 }
