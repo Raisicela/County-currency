@@ -20,12 +20,12 @@ import { CountriesService } from '../../services/countries.service';
 })
 export class CountryModalComponent {
   private countriesService = inject(CountriesService);
+  editCountry = signal<Country>({ id: '', name: '', code: '' });
   @Input() showModal: boolean = false;
   @Input() country?: Country = undefined;
   @Output()
   toggleModal = new EventEmitter();
   @Output() updateList = new EventEmitter();
-  editCountry = signal<Country>({ id: '', name: '', code: '' });
 
   updateName(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -51,7 +51,7 @@ export class CountryModalComponent {
       });
     } else {
       console.log('Create Country', this.editCountry());
-      await this.countriesService.createCountry({
+      await this.countriesService.create({
         name: this.editCountry().name,
         code: this.editCountry().code,
       });

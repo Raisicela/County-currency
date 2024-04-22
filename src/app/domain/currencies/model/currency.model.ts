@@ -3,3 +3,12 @@ export interface Currency {
   symbol: string;
   code: string;
 }
+
+export interface CreateCurrencyDTO {
+  symbol: string;
+  code: string;
+}
+
+export interface DeleteCurrencyDTO {
+  id: string;
+}

@@ -11,16 +11,16 @@
       <div
         class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
       >
-        @if (country == undefined){
-        <h3 class="text-3xl font-semibold">Add New Country</h3>
+        @if (currency == undefined){
+        <h3 class="text-3xl font-semibold">Add New Currency</h3>
 
         } @else {
-        <h3 class="text-3xl font-semibold">Edit Country</h3>
+        <h3 class="text-3xl font-semibold">Edit Currency</h3>
         }
 
         <button
-          class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
           (click)="toggleModalHandler()"
+          class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
         >
           <span
             class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
@@ -32,16 +32,18 @@
       <!--body-->
       <form action="" class="p-10">
         <div>
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-900"
-            >Name:</label
+          <label
+            for="symbol"
+            class="block mb-2 text-sm font-medium text-gray-900"
+            >Symbol:</label
           >
           <input
             type="text"
-            id="name"
+            id="symbol"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value="{{ editCountry().name }}"
+            value="{{ editCurrency().symbol }}"
             required
-            (change)="updateName($event)"
+            (change)="updateSymbol($event)"
           />
         </div>
         <div>
@@ -52,7 +54,7 @@
             type="text"
             id="name"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            value="{{ editCountry().code }}"
+            value="{{ editCurrency().code }}"
             required
             (change)="updateCode($event)"
           />
@@ -63,16 +65,16 @@
         class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b"
       >
         <button
+          (click)="toggleModalHandler()"
           class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           type="button"
-          (click)="toggleModalHandler()"
         >
           Close
         </button>
         <button
+          (click)="saveChanges()"
           class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           type="button"
-          (click)="saveChanges()"
         >
           Save Changes
         </button>

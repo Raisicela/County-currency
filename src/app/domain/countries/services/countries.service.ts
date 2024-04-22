@@ -13,13 +13,13 @@ export class CountriesService {
 
   baseUrl = 'https://p2vwh9eucb.execute-api.us-east-1.amazonaws.com/api/v1/';
 
-  async getAllCountries(): Promise<Country[]> {
+  async getAll(): Promise<Country[]> {
     const result = await fetch(this.baseUrl + 'countries');
     const data = await result.json();
     return data;
   }
 
-  async createCountry(data: CreateCountryDTO) {
+  async create(data: CreateCountryDTO) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     const result = await fetch(this.baseUrl + 'countries', {
